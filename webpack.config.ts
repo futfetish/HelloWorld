@@ -15,6 +15,10 @@ module.exports = (env: any) => {
     },
     devServer: {
       static: "./dist",
+      port : env.port ?? 3000,
+    },
+    optimization: {
+      runtimeChunk: 'single',
     },
     module: {
       rules: [
