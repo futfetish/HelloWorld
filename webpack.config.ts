@@ -20,6 +20,7 @@ module.exports = (env: any) => {
     optimization: {
       runtimeChunk: 'single',
     },
+    devtool: 'inline-source-map',
     module: {
       rules: [
         {
