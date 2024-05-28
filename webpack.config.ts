@@ -7,7 +7,7 @@ module.exports = (env: any) => {
   const mode = env.mode ?? "development";
   const config: webpack.Configuration = {
     mode: mode,
-    entry: path.resolve(__dirname, "src", "index.ts"),
+    entry: path.resolve(__dirname, "src", "index.tsx"),
     output: {
       filename: "[name].[contenthash].js",
       path: path.resolve(__dirname, "dist"),
@@ -35,6 +35,9 @@ module.exports = (env: any) => {
         template: path.resolve(__dirname, "document.html"),
       }),
     ],
+    resolve : {
+      extensions : ['.ts' , '.tsx' , '.js']
+    }
   };
   return config;
 };
