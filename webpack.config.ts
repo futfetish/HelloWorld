@@ -1,6 +1,7 @@
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import webpack from "webpack";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import "webpack-dev-server";
 
 module.exports = (env: any) => {
@@ -26,14 +27,14 @@ module.exports = (env: any) => {
         {
           test: /\.s[ac]ss$/i,
           use: [
-            "style-loader",
+            MiniCssExtractPlugin.loader,
             "css-loader",
             "sass-loader",
           ],
         },
         {
           test: /\.css$/i,
-          use: ["style-loader", "css-loader"],
+          use: [MiniCssExtractPlugin.loader, "css-loader"],
         },
         {
           test: /\.tsx?$/,
@@ -46,6 +47,7 @@ module.exports = (env: any) => {
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "document.html"),
       }),
+      new MiniCssExtractPlugin()
     ],
     resolve : {
       extensions : ['.ts' , '.tsx' , '.js']
