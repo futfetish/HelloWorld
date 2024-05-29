@@ -1,7 +1,7 @@
 import { Configuration } from "webpack";
 import { BuildOptions } from "./types";
 import { buildDevSever } from "./buildDevServer";
-import { buildLouders } from "./buildLouders";
+import { buildLoaders } from "./buildLoaders";
 import { buildPlugins } from "./buildPlugins";
 import { buildResolve } from "./buildResolve";
 import { buildOutput } from "./buildOutput";
@@ -16,7 +16,7 @@ export const buildWebPack = (options: BuildOptions): Configuration => {
     output: buildOutput(options),
     devServer: buildDevSever(options),
     module: {
-      rules: buildLouders(options),
+      rules: buildLoaders(options),
     },
     plugins: buildPlugins(options),
     resolve: buildResolve(options),

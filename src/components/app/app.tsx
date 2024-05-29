@@ -1,9 +1,9 @@
 import { FC } from "react";
-import "@/components/app/app.scss";
+import * as Styles from "@/components/app/app.module.scss";
 
 export const App: FC = () => {
   return (
-    <div className="app">
+    <div className={Styles.app}>
       <p>Hello Wxrld!</p>
     </div>
   );
