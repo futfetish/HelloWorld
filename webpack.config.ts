@@ -1,57 +1,29 @@
 import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import webpack from "webpack";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import "webpack-dev-server";
+import { BuildMode } from "config/build/types";
+import { buildWebPack } from "./config/build/buildWebPack";
 
-module.exports = (env: any) => {
+type WebPackEnv = {
+  mode: BuildMode;
+  port: number;
+};
+
+module.exports = (env: WebPackEnv) => {
   const mode = env.mode ?? "development";
-  const config: webpack.Configuration = {
-    mode: mode,
-    entry: path.resolve(__dirname, "src", "index.tsx"),
-    output: {
-      filename: "[name].[contenthash].js",
-      path: path.resolve(__dirname, "dist"),
-      clean: true,
+
+  const isDev = env.mode == "development";
+
+  const config: webpack.Configuration = buildWebPack({
+    paths: {
+      html: path.resolve(__dirname, "document.html"),
+      entry: path.resolve(__dirname, "src", "index.tsx"),
+      output: path.resolve(__dirname, "dist"),
+      src: path.resolve(__dirname, "src"),
     },
-    devServer: {
-      static: "./dist",
-      port : env.port ?? 3000,
-    },
-    optimization: {
-      runtimeChunk: 'single',
-    },
-    devtool: 'inline-source-map',
-    module: {
-      rules: [
-        {
-          test: /\.s[ac]ss$/i,
-          use: [
-            MiniCssExtractPlugin.loader,
-            "css-loader",
-            "sass-loader",
-          ],
-        },
-        {
-          test: /\.css$/i,
-          use: [MiniCssExtractPlugin.loader, "css-loader"],
-        },
-        {
-          test: /\.tsx?$/,
-          use: "ts-loader",
-          exclude: /node_modules/,
-        },
-      ],
-    },
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, "document.html"),
-      }),
-      new MiniCssExtractPlugin()
-    ],
-    resolve : {
-      extensions : ['.ts' , '.tsx' , '.js']
-    }
-  };
+    port: env.port ?? 3000,
+    mode,
+  });
+
   return config;
 };

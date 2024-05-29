@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
-import { App } from './components/app/app'
-import './globalStyles.css'
+import { App } from '@/components/app/app'
+import '@/globalStyles.css'
 
 const root = document.getElementById('root')
 
