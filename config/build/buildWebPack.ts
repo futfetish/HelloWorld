@@ -6,6 +6,7 @@ import { buildPlugins } from "./buildPlugins";
 import { buildResolve } from "./buildResolve";
 import { buildOutput } from "./buildOutput";
 
+
 export const buildWebPack = (options: BuildOptions): Configuration => {
   const { mode, paths, port } = options;
   const isDev = mode == "development";
